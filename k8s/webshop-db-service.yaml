@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webshop-db
+spec:
+  selector:
+    app: webshop-db
+  ports:
+    - protocol: TCP
+      port: 5432  # The port PostgreSQL listens on
+  type: ClusterIP

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webshop-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webshop-db
+  template:
+    metadata:
+      labels:
+        app: webshop-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"  # Set your database username
+            - name: POSTGRES_PASSWORD
+              value: "root"  # Set your database password
+            - name: POSTGRES_DB
+              value: "webshop"  # Set your database name
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: db-data
+          emptyDir: {}  # Persistent storage (use persistent volume for production)

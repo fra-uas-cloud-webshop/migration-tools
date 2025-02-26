@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webshop-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webshop-backend
+  template:
+    metadata:
+      labels:
+        app: webshop-backend
+    spec:
+      containers:
+        - name: webshop-backend
+          image: webshop-backend:latest  # Local image
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://webshop-db:5432/webshop"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "postgres"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "root"
