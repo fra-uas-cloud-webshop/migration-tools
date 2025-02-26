@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webshop-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webshop-frontend
+  template:
+    metadata:
+      labels:
+        app: webshop-frontend
+    spec:
+      containers:
+        - name: webshop-frontend
+          image: webshop-frontend:latest  # Local image
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
